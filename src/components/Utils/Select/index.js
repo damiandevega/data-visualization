@@ -11,13 +11,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import test_data from '../../../test_data/test_data.json';
+
 const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
   },
   formControl: {
-    margin: theme.spacing.unit,
+    margin: '20px',
     minWidth: 120,
   },
   selectEmpty: {
@@ -28,13 +30,19 @@ const styles = theme => ({
 class SimpleSelect extends React.Component {
   state = {
     line: '',
+    lines: null,
     name: '',
     labelWidth: 0,
   };
 
   componentDidMount() {
+    
+    // This is where xhr would be made to api for data
+    // Instead using test_data object from test_data.json
+    
     this.setState({
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+        lines: test_data.lines,
+        labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
     });
   }
 
@@ -44,6 +52,14 @@ class SimpleSelect extends React.Component {
 
   render() {
     const { classes } = this.props;
+
+    let options;
+
+    this.state.lines !== null ? options = (
+        this.state.lines.map(line => (
+            <MenuItem key={line.id} id={line.id} value={line.name}>{line.name}</MenuItem>
+        ))
+    ) : options = null;
 
     return (
       <form className={classes.root} autoComplete="off">
@@ -70,9 +86,7 @@ class SimpleSelect extends React.Component {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Target Corp</MenuItem>
-            <MenuItem value={20}>Walmart</MenuItem>
-            <MenuItem value={30}>Apple</MenuItem>
+            {options}
           </Select>
         </FormControl>
       </form>
