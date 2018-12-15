@@ -10,6 +10,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 // import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import ShowChart from '@material-ui/icons/ShowChart';
+import TableChart from '@material-ui/icons/TableChart';
 
 import test_data from '../../test_data/test_data.json';
 
@@ -25,6 +29,10 @@ const styles = theme => ({
     selectEmpty: {
       marginTop: theme.spacing.unit * 2,
     },
+    bottomNav: {
+        margin: '5px',
+        float: 'left'
+    }
 });
 
 class Main extends Component {
@@ -35,7 +43,8 @@ class Main extends Component {
             line: '',
             lines: null,
             name: '',
-            labelWidth: 0
+            labelWidth: 0,
+            navValue: 0
         }
     }
 
@@ -54,18 +63,25 @@ class Main extends Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-
+    handleNavChange = (event, value) => {
+        this.setState({ navValue: value });
+    }
 
     render() {
         const { classes } = this.props;
+        const { navValue } = this.state;
 
-        let options;
-
-        this.state.lines !== null ? options = (
+        let lineOptions;
+        this.state.lines !== null ? lineOptions = (
             this.state.lines.map(line => (
                 <MenuItem key={line.id} id={line.id} value={line.name}>{line.name}</MenuItem>
             ))
-        ) : options = null;
+        ) : lineOptions = null;
+
+        let selectedLine;
+        this.state.line !== '' ? selectedLine = (
+            <h2>{this.state.line}</h2>
+        ) : selectedLine = null;
 
         return (
             <div>
@@ -93,10 +109,24 @@ class Main extends Component {
                         <MenuItem value="">
                         <em>None</em>
                         </MenuItem>
-                        {options}
+                        {lineOptions}
                     </Select>
                     </FormControl>
                 </form>
+                <h1>Options Toggle</h1>
+                <h1>Chart or Grid</h1>
+                {selectedLine}
+
+                <BottomNavigation
+                    value={navValue}
+                    onChange={this.handleNavChange}
+                    showLabels
+                    className={classes.bottomNav}
+                >
+                    <BottomNavigationAction label="Chart" icon={<ShowChart />} />
+                    <BottomNavigationAction label="Grid" icon={<TableChart />} />
+                </BottomNavigation>
+
             </div>
         )
     }
