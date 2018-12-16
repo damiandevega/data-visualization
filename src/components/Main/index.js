@@ -10,6 +10,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import ShowChart from '@material-ui/icons/ShowChart';
@@ -18,6 +21,10 @@ import TableChart from '@material-ui/icons/TableChart';
 import test_data from '../../test_data/test_data.json';
 
 const styles = theme => ({
+    container: {
+        // display: 'block',
+        // float: 'left'
+    },
     root: {
       display: 'flex',
       flexWrap: 'wrap',
@@ -35,7 +42,8 @@ const styles = theme => ({
     },
     button: {
         marginLeft: '20px',
-        color: 'gray'
+        color: 'gray',
+        textTransform: 'none'
         // marginBottom: '20px'
     }
 });
@@ -50,7 +58,13 @@ class Main extends Component {
             name: '',
             labelWidth: 0,
             navValue: 0,
-            toggleOptions: false
+            toggleOptions: false,
+            checkedA: false,
+            checkedB: false,
+            checkedC: false,
+            checkedD: false,
+            checkedE: false,
+            checkedF: false
         }
     }
 
@@ -74,6 +88,10 @@ class Main extends Component {
         this.setState({ toggleOptions: !toggle })
     }
 
+    handleCheckboxChange = name => event => {
+        this.setState({ [name]: event.target.checked });
+    };
+
     handleNavChange = (event, value) => {
         this.setState({ navValue: value });
     }
@@ -91,7 +109,74 @@ class Main extends Component {
 
         let options;
         this.state.toggleOptions ? options = (
-            <h1>options</h1>
+            <FormGroup row style={{ marginLeft: '20px', marginTop: '5px' }}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={this.state.checkedA}
+              onChange={this.handleCheckboxChange('checkedA')}
+              value="checkedA"
+              color="primary"
+            />
+          }
+          label="Secondary"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={this.state.checkedB}
+              onChange={this.handleCheckboxChange('checkedB')}
+              value="checkedB"
+              color="primary"
+            />
+          }
+          label="Primary"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={this.state.checkedC}
+              onChange={this.handleCheckboxChange('checkedC')}
+              value="checkedC"
+              color="primary"
+            />
+          }
+          label="Indeterminate"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={this.state.checkedD}
+              onChange={this.handleCheckboxChange('checkedD')}
+              value="checkedD"
+              color="primary"
+            />
+          }
+          label="Custom color"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={this.state.checkedE}
+              onChange={this.handleCheckboxChange('checkedE')}
+              value="checkedE"
+              color="primary"
+            />
+          }
+          label="Custom color"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={this.state.checkedF}
+              onChange={this.handleCheckboxChange('checkedF')}
+              value="checkedF"
+              color="primary"
+            />
+          }
+          label="Custom color"
+        />
+      </FormGroup>
         ) : options = null;
 
         let selectedLine;
@@ -99,51 +184,56 @@ class Main extends Component {
             <h1>{this.state.line}</h1>
         ) : selectedLine = null;
 
+        let chartOrGrid;
+        this.state.navValue === 0 ? chartOrGrid = (
+            <h1>Chart Selected</h1>
+        ) : chartOrGrid = (
+            <h1>Grid Selected</h1>
+        )
+
         return (
             <div>
-                <form className={classes.root} autoComplete="off">
-                    <FormControl variant="outlined" className={classes.formControl}>
-                    <InputLabel
-                        ref={ref => {
-                        this.InputLabelRef = ref;
-                        }}
-                        htmlFor="outlined-line-simple"
-                    >
-                        Select Line
-                    </InputLabel>
-                    <Select
-                        value={this.state.line}
-                        onChange={this.handleChange}
-                        input={
-                        <OutlinedInput
-                            labelWidth={this.state.labelWidth}
-                            name="line"
-                            id="outlined-line-simple"
-                        />
-                        }
-                    >
-                        <MenuItem value="">
-                        <em>None</em>
-                        </MenuItem>
-                        {lineOptions}
-                    </Select>
-                    </FormControl>
-                </form>
-
-                <Grid container spacing={24}>
-                    <Grid item xs={12} sm={12}>
-                        <Button 
-                            variant="outlined" 
-                            className={classes.button}
-                            onClick={this.handleToggle}
+                <div className={classes.container}>
+                    <form className={classes.root} autoComplete="off">
+                        <FormControl variant="outlined" className={classes.formControl}>
+                        <InputLabel
+                            ref={ref => {
+                            this.InputLabelRef = ref;
+                            }}
+                            htmlFor="outlined-line-simple"
                         >
-                            Toggle Options
-                        </Button>
-                        {options}
-                    </Grid>
-                </Grid>
+                            Select Line
+                        </InputLabel>
+                        <Select
+                            value={this.state.line}
+                            onChange={this.handleChange}
+                            input={
+                            <OutlinedInput
+                                labelWidth={this.state.labelWidth}
+                                name="line"
+                                id="outlined-line-simple"
+                            />
+                            }
+                        >
+                            <MenuItem value="">
+                            <em>None</em>
+                            </MenuItem>
+                            {lineOptions}
+                        </Select>
+                        </FormControl>
+                    </form>
+                    
+                    <Button 
+                        variant="outlined" 
+                        className={classes.button}
+                        onClick={this.handleToggle}
+                    >
+                        Toggle Options
+                    </Button>
+                    {options}
+                </div>
 
-                {selectedLine}
+                {chartOrGrid}
 
                 <BottomNavigation
                     value={navValue}
