@@ -28,46 +28,30 @@ const styles = theme => ({
 
 function SimpleTable(props) {
   const { classes, line, lines } = props;
-
-  console.log(line);
-  console.log(lines);
-
   let id = 0;
   function createData(time, revenue, sector, name) {
     id += 1;
     return { id, time, revenue, sector, name };
   }
 
-  const rows = [];
-  const filteredLine = lines.filter(match => match.name === line);
+  let rows = [];
+  let filteredLine = lines.filter(match => match.name === line);
 
-  console.log(filteredLine);
+  if (filteredLine.length > 0) {
+      let filteredObject = filteredLine[0];
+      let timesLength = filteredObject.times.length;
 
-  if (line && lines) {
-      lines.map(match => {
-          if (line === match.name) {
-              console.log('matched');
-          }
-      })
+      console.log(filteredObject);
+      console.log(timesLength);
+
+      for (var i = 0; i < timesLength; i++) {
+        rows.push(
+          createData(filteredObject.times[i], filteredObject.values[i], filteredObject.sector, filteredObject.name)
+        )
+      }
+  } else {
+    alert('No line selected');
   }
-
-//   const rows = [
-//     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//     createData('Eclair', 262, 16.0, 24, 6.0),
-//     createData('Cupcake', 305, 3.7, 67, 4.3),
-//     createData('Gingerbread', 356, 16.0, 49, 3.9),
-//     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//     createData('Eclair', 262, 16.0, 24, 6.0),
-//     createData('Cupcake', 305, 3.7, 67, 4.3),
-//     createData('Gingerbread', 356, 16.0, 49, 3.9),
-//     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//     createData('Eclair', 262, 16.0, 24, 6.0),
-//     createData('Cupcake', 305, 3.7, 67, 4.3),
-//     createData('Gingerbread', 356, 16.0, 49, 3.9),
-//   ];
 
   return (
     <Paper className={classes.root}>

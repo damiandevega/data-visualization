@@ -181,10 +181,10 @@ class Main extends Component {
         </FormGroup>
         ) : options = null;
 
-        let selectedLine;
-        this.state.line !== '' ? selectedLine = (
-            <h1>{this.state.line}</h1>
-        ) : selectedLine = null;
+        // let selectedLine;
+        // this.state.line !== '' ? selectedLine = (
+        //     <h1>{this.state.line}</h1>
+        // ) : selectedLine = null;
 
         let chartOrGrid;
         this.state.navValue === 0 ? chartOrGrid = (
@@ -192,7 +192,7 @@ class Main extends Component {
         ) : chartOrGrid = (
             <div style={{ margin: "20px" }}>
                 {/* <GridDisplay lines={this.state.lines} style={{ margin: '20px'}} /> */}
-                <SimpleGridDisplay line={this.state.line} lines={this.state.lines} style={{ margin: '20px'}} />
+                <SimpleGridDisplay line={this.state.line} lines={this.state.lines} style={{ margin: '20px' }} />
             </div>
         )
 
