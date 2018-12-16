@@ -20,10 +20,12 @@ import TableChart from '@material-ui/icons/TableChart';
 
 import test_data from '../../test_data/test_data.json';
 
+import GridDisplay from '../GridDisplay';
+import SimpleGridDisplay from '../SimpleGridDisplay';
+
 const styles = theme => ({
     container: {
-        // display: 'block',
-        // float: 'left'
+
     },
     root: {
       display: 'flex',
@@ -109,74 +111,74 @@ class Main extends Component {
 
         let options;
         this.state.toggleOptions ? options = (
-            <FormGroup row style={{ marginLeft: '20px', marginTop: '5px' }}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={this.state.checkedA}
-              onChange={this.handleCheckboxChange('checkedA')}
-              value="checkedA"
-              color="primary"
+        <FormGroup row style={{ marginLeft: '20px', marginTop: '5px' }}>
+            <FormControlLabel
+            control={
+                <Checkbox
+                checked={this.state.checkedA}
+                onChange={this.handleCheckboxChange('checkedA')}
+                value="checkedA"
+                color="primary"
+                />
+            }
+            label="Retail"
             />
-          }
-          label="Secondary"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={this.state.checkedB}
-              onChange={this.handleCheckboxChange('checkedB')}
-              value="checkedB"
-              color="primary"
+            <FormControlLabel
+            control={
+                <Checkbox
+                checked={this.state.checkedB}
+                onChange={this.handleCheckboxChange('checkedB')}
+                value="checkedB"
+                color="primary"
+                />
+            }
+            label="Technology"
             />
-          }
-          label="Primary"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={this.state.checkedC}
-              onChange={this.handleCheckboxChange('checkedC')}
-              value="checkedC"
-              color="primary"
+            <FormControlLabel
+            control={
+                <Checkbox
+                checked={this.state.checkedC}
+                onChange={this.handleCheckboxChange('checkedC')}
+                value="checkedC"
+                color="primary"
+                />
+            }
+            label="Services"
             />
-          }
-          label="Indeterminate"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={this.state.checkedD}
-              onChange={this.handleCheckboxChange('checkedD')}
-              value="checkedD"
-              color="primary"
+            <FormControlLabel
+            control={
+                <Checkbox
+                checked={this.state.checkedD}
+                onChange={this.handleCheckboxChange('checkedD')}
+                value="checkedD"
+                color="primary"
+                />
+            }
+            label="Food"
             />
-          }
-          label="Custom color"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={this.state.checkedE}
-              onChange={this.handleCheckboxChange('checkedE')}
-              value="checkedE"
-              color="primary"
+            <FormControlLabel
+            control={
+                <Checkbox
+                checked={this.state.checkedE}
+                onChange={this.handleCheckboxChange('checkedE')}
+                value="checkedE"
+                color="primary"
+                />
+            }
+            label="Education"
             />
-          }
-          label="Custom color"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={this.state.checkedF}
-              onChange={this.handleCheckboxChange('checkedF')}
-              value="checkedF"
-              color="primary"
+            <FormControlLabel
+            control={
+                <Checkbox
+                checked={this.state.checkedF}
+                onChange={this.handleCheckboxChange('checkedF')}
+                value="checkedF"
+                color="primary"
+                />
+            }
+            label="Security"
             />
-          }
-          label="Custom color"
-        />
-      </FormGroup>
+        </FormGroup>
         ) : options = null;
 
         let selectedLine;
@@ -188,7 +190,10 @@ class Main extends Component {
         this.state.navValue === 0 ? chartOrGrid = (
             <h1>Chart Selected</h1>
         ) : chartOrGrid = (
-            <h1>Grid Selected</h1>
+            <div style={{ margin: "20px" }}>
+                {/* <GridDisplay lines={this.state.lines} style={{ margin: '20px'}} /> */}
+                <SimpleGridDisplay line={this.state.line} lines={this.state.lines} style={{ margin: '20px'}} />
+            </div>
         )
 
         return (
