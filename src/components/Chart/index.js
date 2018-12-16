@@ -3,17 +3,27 @@ import React from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
-const options = {
-  title: {
-    text: 'Revenue'
-  },
-  series: [{
-    data: [1, 2, 3]
-  }]
-}
-
 const Chart = (props) => {
-    console.log(props);
+    const { line, lines } = props;
+    let filteredLine = lines.filter(match => match.name === line);
+    let filteredObject = filteredLine[0];
+
+    const options = {
+        title: {
+            text: `${line} Revenue`
+          },
+        xAxis: {
+            categories: filteredObject.times
+        },
+        plotOptions: {
+            series: {
+                allowPointSelect: true
+            }
+        },
+        series: [{
+            data: filteredObject.values
+        }]
+    }
 
     return (
         <div>
