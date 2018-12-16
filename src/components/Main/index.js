@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// import Input from '@material-ui/core/Input';
+
+import Grid from '@material-ui/core/Grid';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-// import FilledInput from '@material-ui/core/FilledInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-// import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import ShowChart from '@material-ui/icons/ShowChart';
@@ -32,6 +32,11 @@ const styles = theme => ({
     bottomNav: {
         margin: '5px',
         float: 'left'
+    },
+    button: {
+        marginLeft: '20px',
+        color: 'gray'
+        // marginBottom: '20px'
     }
 });
 
@@ -44,7 +49,8 @@ class Main extends Component {
             lines: null,
             name: '',
             labelWidth: 0,
-            navValue: 0
+            navValue: 0,
+            toggleOptions: false
         }
     }
 
@@ -63,6 +69,11 @@ class Main extends Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
+    handleToggle = event => {
+        let toggle = this.state.toggleOptions;
+        this.setState({ toggleOptions: !toggle })
+    }
+
     handleNavChange = (event, value) => {
         this.setState({ navValue: value });
     }
@@ -78,9 +89,14 @@ class Main extends Component {
             ))
         ) : lineOptions = null;
 
+        let options;
+        this.state.toggleOptions ? options = (
+            <h1>options</h1>
+        ) : options = null;
+
         let selectedLine;
         this.state.line !== '' ? selectedLine = (
-            <h2>{this.state.line}</h2>
+            <h1>{this.state.line}</h1>
         ) : selectedLine = null;
 
         return (
@@ -113,8 +129,20 @@ class Main extends Component {
                     </Select>
                     </FormControl>
                 </form>
-                <h1>Options Toggle</h1>
-                <h1>Chart or Grid</h1>
+
+                <Grid container spacing={24}>
+                    <Grid item xs={12} sm={12}>
+                        <Button 
+                            variant="outlined" 
+                            className={classes.button}
+                            onClick={this.handleToggle}
+                        >
+                            Toggle Options
+                        </Button>
+                        {options}
+                    </Grid>
+                </Grid>
+
                 {selectedLine}
 
                 <BottomNavigation
@@ -126,7 +154,6 @@ class Main extends Component {
                     <BottomNavigationAction label="Chart" icon={<ShowChart />} />
                     <BottomNavigationAction label="Grid" icon={<TableChart />} />
                 </BottomNavigation>
-
             </div>
         )
     }
