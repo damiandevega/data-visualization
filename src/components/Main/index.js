@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -20,8 +20,9 @@ import TableChart from '@material-ui/icons/TableChart';
 
 import test_data from '../../test_data/test_data.json';
 
-import GridDisplay from '../GridDisplay';
+// import GridDisplay from '../GridDisplay';
 import SimpleGridDisplay from '../SimpleGridDisplay';
+import Chart from '../Chart';
 
 const styles = theme => ({
     container: {
@@ -181,18 +182,22 @@ class Main extends Component {
         </FormGroup>
         ) : options = null;
 
-        // let selectedLine;
-        // this.state.line !== '' ? selectedLine = (
-        //     <h1>{this.state.line}</h1>
-        // ) : selectedLine = null;
-
         let chartOrGrid;
-        this.state.navValue === 0 ? chartOrGrid = (
-            <h1>Chart Selected</h1>
-        ) : chartOrGrid = (
+        this.state.navValue === 0 ? 
+            this.state.line !== '' ? chartOrGrid = (
+                <div style={{ margin: "20px" }}>
+                    <Chart 
+                        line={this.state.line} 
+                        lines={this.state.lines}
+                    />
+                </div>) : chartOrGrid = (<h2 style={{ color: 'orange', margin: '20px' }}>No line selected</h2>)
+            : chartOrGrid = (
             <div style={{ margin: "20px" }}>
-                {/* <GridDisplay lines={this.state.lines} style={{ margin: '20px'}} /> */}
-                <SimpleGridDisplay line={this.state.line} lines={this.state.lines} style={{ margin: '20px' }} />
+                <SimpleGridDisplay 
+                    line={this.state.line} 
+                    lines={this.state.lines} 
+                    style={{ margin: '20px' }} 
+                />
             </div>
         )
 

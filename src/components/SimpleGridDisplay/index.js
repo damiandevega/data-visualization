@@ -41,16 +41,14 @@ function SimpleTable(props) {
       let filteredObject = filteredLine[0];
       let timesLength = filteredObject.times.length;
 
-      console.log(filteredObject);
-      console.log(timesLength);
-
       for (var i = 0; i < timesLength; i++) {
         rows.push(
           createData(filteredObject.times[i], filteredObject.values[i], filteredObject.sector, filteredObject.name)
         )
       }
   } else {
-    alert('No line selected');
+    // TODO: add error handling for no line selected
+    console.log('No line selected');
   }
 
   return (
