@@ -58,6 +58,8 @@ class Main extends Component {
         this.state = {
             line: '',
             lines: null,
+            times: [],
+            values: [],
             name: '',
             labelWidth: 0,
             navValue: 0,
@@ -72,7 +74,6 @@ class Main extends Component {
     }
 
     componentDidMount() {
-    
         // This is where xhr would be made to api for data
         // Instead using test_data object from test_data.json
         
@@ -83,7 +84,29 @@ class Main extends Component {
     }
 
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        if (event.target.value) {
+            let name = event.target.value;
+            let lines = this.state.lines;
+            let times = [];
+            let values = [];
+
+            for (var i = 0; i < lines.length; i++) {
+                if (name === lines[i].name) {
+                    for (var j = 0; j < lines[i].times.length; j++) {
+                        times.push(lines[i].times[j]);
+                    }
+                    for (var k = 0; k < lines[i].values.length; k++) {
+                        values.push(lines[i].values[k]);
+                    }
+                }
+            }
+    
+            this.setState({ 
+                [event.target.name]: event.target.value,
+                times: times,
+                values: values
+            });
+        } 
     };
 
     handleToggle = event => {
@@ -189,17 +212,20 @@ class Main extends Component {
                     <Chart 
                         line={this.state.line} 
                         lines={this.state.lines}
+                        times={this.state.times}
+                        values={this.state.values}
                     />
-                </div>) : chartOrGrid = (<h2 style={{ color: 'orange', margin: '20px' }}>No line selected</h2>)
+                </div>
+            ) : chartOrGrid = (<h2 style={{ color: 'orange', margin: '20px' }}>No line selected</h2>)
             : chartOrGrid = (
-            <div style={{ margin: "20px" }}>
-                <SimpleGridDisplay 
-                    line={this.state.line} 
-                    lines={this.state.lines} 
-                    style={{ margin: '20px' }} 
-                />
-            </div>
-        )
+                <div style={{ margin: "20px" }}>
+                    <SimpleGridDisplay 
+                        line={this.state.line} 
+                        lines={this.state.lines} 
+                        style={{ margin: '20px' }} 
+                    />
+                </div>
+            )
 
         return (
             <div>
