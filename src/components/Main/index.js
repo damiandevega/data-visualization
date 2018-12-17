@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-// import Grid from '@material-ui/core/Grid';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -20,7 +19,6 @@ import TableChart from '@material-ui/icons/TableChart';
 
 import test_data from '../../test_data/test_data.json';
 
-// import GridDisplay from '../GridDisplay';
 import SimpleGridDisplay from '../SimpleGridDisplay';
 import Chart from '../Chart';
 
@@ -47,7 +45,6 @@ const styles = theme => ({
         marginLeft: '20px',
         color: 'gray',
         textTransform: 'none'
-        // marginBottom: '20px'
     }
 });
 

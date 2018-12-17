@@ -46,9 +46,6 @@ function SimpleTable(props) {
           createData(filteredObject.times[i], filteredObject.values[i], filteredObject.sector, filteredObject.name)
         )
       }
-  } else {
-    // TODO: add error handling for no line selected
-    console.log('No line selected');
   }
 
   return (
