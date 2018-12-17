@@ -19,7 +19,13 @@ const styles = theme => ({
     minWidth: 700,
   },
   tableHead: {
-
+    backgroundColor: 'gray',
+  },
+  tableHeadCell: {
+    backgroundColor: 'gray',
+    color: 'white',
+    position: 'sticky',
+    top: 0
   },
   tableBody: {
 
@@ -53,10 +59,10 @@ function SimpleTable(props) {
       <Table className={classes.table}>
         <TableHead className={classes.tableHead}>
           <TableRow>
-            <TableCell>Time</TableCell>
-            <TableCell numeric>Revenue</TableCell>
-            <TableCell numeric>Sector</TableCell>
-            <TableCell numeric>Name</TableCell>
+            <TableCell className={classes.tableHeadCell}>Time</TableCell>
+            <TableCell className={classes.tableHeadCell}>Revenue</TableCell>
+            <TableCell className={classes.tableHeadCell}>Sector</TableCell>
+            <TableCell className={classes.tableHeadCell}>Name</TableCell>
           </TableRow>
         </TableHead>
         <TableBody className={classes.tableBody}>
@@ -66,9 +72,9 @@ function SimpleTable(props) {
                 <TableCell component="th" scope="row">
                   {row.time}
                 </TableCell>
-                <TableCell numeric>{row.revenue}</TableCell>
-                <TableCell numeric>{row.sector}</TableCell>
-                <TableCell numeric>{row.name}</TableCell>
+                <TableCell>{row.revenue}</TableCell>
+                <TableCell>{row.sector}</TableCell>
+                <TableCell>{row.name}</TableCell>
               </TableRow>
             );
           })}
